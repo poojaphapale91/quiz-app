@@ -1,84 +1,59 @@
-const quizDb =[
-    {
-        question: "Q1: What is the full form of HTML?",
-        a: "hello to my land",
-        b: "Hey text Markup Language",
-        c: "Hyper Text Makeup Language",
-        d: "Hyper Text Markup Language",
-        ans: "ans3",
-    },
-    {
-        question:"What is the full form of CSS?",
-        a: "Cascading style sheets",
-        b: "Cascading style sheeps",
-        c: "Cartoon style sheets",
-        d: "Cascading super sheets",
-        ans: "ans1",
-    },
-    {
-        question:"What is the full form of JS?",
-        a: "JavaSuper",
-        b: "JavaScript",
-        c: "JustScript",
-        d: "JordenShoes",
-        ans: "ans2",
-    },
-];
+const catgryName = document.getElementById("catgryName");
+        let scores = document.getElementById('score');
+        const questions = document.querySelector(".questions");
+        const option1 = document.querySelector("#option1");
+        const option2 = document.querySelector("#option2");
+        const option3 = document.querySelector("#option3");
+        const option4 = document.querySelector("#option4");
+        const submit = document.querySelector("#submit");
+        let answers = document.querySelectorAll('.answer');
+        let options = document.querySelectorAll('.options');
 
-const questions = document.querySelector(".questions");
-const option1= document.querySelector("#option1");
-const option2= document.querySelector("#option2");
-const option3= document.querySelector("#option3");
-const option4= document.querySelector("#option4");
-const submit= document.querySelector("#submit");
+        let questionCount = 0;
+        async function loadQuiz() {
+            let res = await fetch('https://the-trivia-api.com/api/questions?categories=general_knowledge,history,science,sport_and_leisure&limit=10&region=IN&difficulty=easy');
+            console.log(res);
+            let jsn = await res.json();
+            console.log(jsn);
+            // const data=jsn.question;
+            // console.log(data);
 
-const answers=document.querySelectorAll(".answer");
-let questionCount = 0;
-let score=0;
+            let questionList = jsn[questionCount];
+            questions.innerHTML = questionList.question;
+            catgryName.innerHTML = questionList.category;
 
-const hideArea=document.querySelector(".hideArea");
+            //generating options in random order
+            let answerChoices = questionList.incorrectAnswers;
+            console.log(answerChoices);
+            let option = Math.floor(Math.random() * 3) + 1;
+            let choice = answerChoices.splice(option, 0, questionList.correctAnswer);
+            console.log(answerChoices);
 
-const loadQuiz = ()=>{
-    //console.log(questions.innerHTML =quizDb[0].question )
+            //assigning option values
+            answerChoices.forEach((options) => {
+                option1.innerHTML = answerChoices[0];
+                option2.innerHTML = answerChoices[1];
+                option3.innerHTML = answerChoices[2];
+                option4.innerHTML = answerChoices[3];
+            })
 
-    const questionList=quizDb[questionCount];
-    questions.innerHTML = questionList.question;
-    option1.innerHTML=questionList.a;
-    option2.innerHTML=questionList.b;
-    option3.innerHTML=questionList.c;
-    option4.innerHTML=questionList.d;  
-}
-loadQuiz();
+            submit.addEventListener('click', () => {
+                console.log('clicked on button');
+                let score = 0;
+                let answer;
+                scores.innerHTML = `${score}/${questionCount}`;
+                let checkedAnswer = () => {
+                    answers.forEach((curAns) => {
+                        if (curAns.checked) {
+                            answer = curAns.value;
+                            console.log(answer);
+                        }
+                        console.log(questionList.correctAnswer);
 
-submit.addEventListener("click", ()=>{
-    let checkedAnswer = ()=>{
-    let answer;
-    answers.forEach((curAnsElm)=>{
-        if(curAnsElm.checked){
-            answer=curAnsElm.id;
-            console.log(answer);
+                    });
+                }
+                checkedAnswer();
+
+            });
         }
-       
-           });
-           if (answer == quizDb[questionCount].ans){
-            score++;
-            console.log("Score is: ", score);
-        }
-        questionCount++;
-        if(questionCount <quizDb.length){
-            loadQuiz();
-        }
-        else{
-            showScore.innerHTML=`
-            <h3>You have scored ${score} / ${questionCount} :)</h3>
-            <button id="submit" onclick="location.reload()"> Play Again </button>
-            `;
-            hideArea.style.display="block";
-        }
-}
-checkedAnswer();
-
-
-
-});
-
+        loadQuiz();

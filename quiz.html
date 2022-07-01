@@ -1,41 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <title>Hello, world!</title>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="" />
-  <link rel="stylesheet" type="text/css" href="style.css">
-  
+    <title>Quiz App</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" type="text/css" href="style.css">
+    
 </head>
+
 <body>
-  <h1>Quiz App </h1>
-  <div class="main-div">
-      <div class="inner-div">
-          <h2 class="questions"> Question comes here....</h2>
-          <ul>
-              <li>
-                  <input type="radio" id="ans1" name="answer" class="answer">
-                  <label for="ans1" id="option1"> Option 1</label>
-              </li>
-              <li>
-                  <input type="radio" id="ans2" name="answer" class="answer">
-                  <label for="ans2" id="option2"> Option 2</label>
-              </li>
-              <li>
-                  <input type="radio" id="ans3" name="answer" class="answer">
-                  <label for="ans3" id="option3"> Option 3</label>
-              </li>
-              <li>
-                  <input type="radio" id="ans4" name="answer" class="answer">
-                  <label for="ans4" id="option4"> Option 4</label>
-              </li>
-          </ul>
-          <button id="submit"> SUBMIT</button>
-          <div id="showScore" class="hideArea">
-              </div>
-      </div>
-      </div>
+    <div class="container">
+        <div class="leftpane">
+            <strong>Category: </strong><span id="catgryName"></span>
+        </div>
+        <div class="showScore">
+            <strong>Score: </strong><span id="score"></span>
+        </div>
+    </div>
+
+    <div class="main-div">
+
+        <div class="inner-div">
+            <h2 class="questions"></h2>
+            <ul>
+                <li>
+                    <input type="radio"  name="answer" class="answer" value="answer1" >
+                    <label for="answer1" id="option1"> </label>
+                </li>
+                <li>
+                    <input type="radio" name="answer" class="answer" value="answer2">
+                    <label for="answer2" id="option2"> </label>
+                </li>
+                <li>
+                    <input type="radio" name="answer" class="answer" value="answer3">
+                    <label for="answer3" id="option3"> </label>
+                </li>
+                <li>
+                    <input type="radio" name="answer" class="answer" value="answer4">
+                    <label for="answer4" id="option4"> </label>
+                </li>
+            </ul>
+            <button id="submit"> SUBMIT</button>
+
+        </div>
+    </div>
+    <script src="/quizdb.js"></script>
 </body>
-<script src="quizdb.js"></script>
+
 </html>
